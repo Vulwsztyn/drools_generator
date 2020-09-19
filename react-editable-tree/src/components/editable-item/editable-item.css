@@ -1,0 +1,31 @@
+.EditableItem {
+    height: 25px;
+}
+
+.EditableItem-Text {
+    height: 100%;
+    width: 500px;
+    border: none;
+    padding: 10px;
+    background-color: white;
+    border-bottom: 1px solid whitesmoke;
+    font-size: 10pt;
+}
+
+.EditableItem-Button {
+    height: 25px;
+    width: 25px;
+    background-color: white;
+    border-right: 1px solid whitesmoke;
+    border-bottom: 1px solid whitesmoke;
+    color: grey;
+    font-size: 10pt;
+}
+
+.EditableItem-Button_add:hover {
+    color: black;
+}
+
+.EditableItem-Button_remove:hover {
+    color: orangered;
+}

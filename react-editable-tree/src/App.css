@@ -1,0 +1,48 @@
+input {
+    -moz-user-select: none; 
+    -ms-user-select: none; 
+    -o-user-select: none;
+    -webkit-user-select: none;
+    -webkit-appearance: none;
+}
+  
+input:active, input:focus {
+    outline: none;
+}
+  
+button {
+    display: inline-block;
+    padding: 0;
+    border: 0;
+    -moz-user-select: none;
+    -ms-user-select: none; 
+    -o-user-select: none; 
+    -webkit-user-select: none;
+    cursor: pointer;
+}
+  
+button:active, button:focus {
+    outline: none;
+}
+  
+button::-moz-focus-inner {
+    border: 0;
+}
+  
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding-left: 25px;
+}
+  
+textarea {
+    outline: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    border: none;
+    font-family: "Verdana", "Tahoma", "Arial", sans-serif;
+}
+
+::selection {
+    background-color: #F3E5AB;
+}

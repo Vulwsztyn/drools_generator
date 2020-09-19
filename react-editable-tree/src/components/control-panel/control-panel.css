@@ -1,0 +1,23 @@
+.ControlPanel {
+    height: 40px;
+    display: flex;
+    align-items: center
+}
+
+.ControlPanel-Button {
+    margin-left: 25px;
+    background-color: white;
+    font-size: 12pt;
+    color: dodgerblue;
+    height: 30px;
+    border-radius: 5px;
+
+}
+
+.ControlPanel-Button:hover:active {
+    opacity: .4;
+}
+
+.ControlPanel-Button_load {
+    color: mediumturquoise;
+}

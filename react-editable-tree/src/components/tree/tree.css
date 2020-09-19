@@ -1,0 +1,13 @@
+.Tree {
+    display: flex;
+    width: 100%;
+    min-width: 800px;
+}
+
+.Tree-LeftSide {
+    width: 65%;
+}
+
+.Tree-RightSide {
+    width: 35%;
+}
