@@ -1,0 +1,142 @@
+package com.sample
+import javax.swing.JOptionPane
+import javax.swing.JFrame
+import org.kie.api.runtime.KieRuntime
+import javax.swing.JRadioButton
+import javax.swing.JPanel
+global JFrame frame
+global javax.swing.JTextArea textArea
+import java.util.ArrayList
+import java.util.List
+import java.util.Arrays;
+import java.util.ArrayList
+import javax.swing.JLabel;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import com.sample.Odpowiedz;
+    rule "Czy masz konto na githubie?"
+    when
+    then
+    ArrayList<String> warianty = new ArrayList<>();
+    warianty.add("Nie");
+    warianty.add("Tak");
+    Odpowiedz odpowiedz = zapytaj(frame, kcontext.getKieRuntime(), "Czy masz konto na githubie?", warianty);
+    insert (odpowiedz);
+end
+
+rule "Czy masz konto na githubie? - Nie - To załóż i pogwiazdkuj mi repo"
+    when
+    Odpowiedz(pytanie == "Czy masz konto na githubie?" && odpowiedz == "Nie")
+    then
+    polec(frame, kcontext.getKieRuntime(), "To załóż i pogwiazdkuj mi repo");
+end
+
+
+rule "Czy masz konto na githubie? - Tak - Czy pogwiazdkowałeś mi repo?"
+    when
+    Odpowiedz(pytanie == "Czy masz konto na githubie?" && odpowiedz == "Tak")
+    then
+    ArrayList<String> warianty = new ArrayList<>();
+    warianty.add("Tak");
+    warianty.add("Nie");
+    Odpowiedz odpowiedz = zapytaj(frame, kcontext.getKieRuntime(), "Czy pogwiazdkowałeś mi repo?", warianty);
+    insert (odpowiedz);
+end
+
+rule "Czy pogwiazdkowałeś mi repo? - Tak - Dziena, <3"
+    when
+    Odpowiedz(pytanie == "Czy pogwiazdkowałeś mi repo?" && odpowiedz == "Tak")
+    then
+    polec(frame, kcontext.getKieRuntime(), "Dziena, <3");
+end
+
+
+rule "Czy pogwiazdkowałeś mi repo? - Nie - :("
+    when
+    Odpowiedz(pytanie == "Czy pogwiazdkowałeś mi repo?" && odpowiedz == "Nie")
+    then
+    polec(frame, kcontext.getKieRuntime(), ":(");
+end
+
+
+rule "Czy Artur Mi. jest dobrym prowadzącym?"
+    when
+    then
+    ArrayList<String> warianty = new ArrayList<>();
+    warianty.add("Nie3");
+    Odpowiedz odpowiedz = zapytaj(frame, kcontext.getKieRuntime(), "Czy Artur Mi. jest dobrym prowadzącym?", warianty);
+    insert (odpowiedz);
+end
+
+rule "Czy Artur Mi. jest dobrym prowadzącym? - Nie3 - No, ba"
+    when
+    Odpowiedz(pytanie == "Czy Artur Mi. jest dobrym prowadzącym?" && odpowiedz == "Nie3")
+    then
+    polec(frame, kcontext.getKieRuntime(), "No, ba");
+end
+
+
+rule "Czy Artur Mi. jest dobrym prowadzącym? - Nie3 - I nie on jeden"
+    when
+    Odpowiedz(pytanie == "Czy Artur Mi. jest dobrym prowadzącym?" && odpowiedz == "Nie3")
+    then
+    polec(frame, kcontext.getKieRuntime(), "I nie on jeden");
+end
+
+function void polec(JFrame frame, KieRuntime krt, String polecane) {
+    final JPanel panel = new JPanel();
+    String text = polecane;
+    panel.add(new JLabel(text));
+    JOptionPane.showMessageDialog(frame, panel);
+}
+
+function Odpowiedz zapytaj(JFrame frame, KieRuntime krt, String trescPytania, ArrayList odpowiedzi) {
+
+    class Sluchacz implements ItemListener {
+        private Odpowiedz odpowiedz;
+        private String chosen;
+        public Sluchacz(Odpowiedz odp, String wybrana) {
+            this.odpowiedz = odp;
+            this.chosen = wybrana;
+        }
+
+        @Override
+        public void itemStateChanged(ItemEvent event) {
+            if (event.getStateChange() == ItemEvent.SELECTED) {
+                odpowiedz.setOdpowiedz(chosen);
+            }
+        }
+    }
+    Odpowiedz odpowiedz = new Odpowiedz(trescPytania, (String) odpowiedzi.get(0));
+
+    final JPanel panel = new JPanel(new GridLayout(0, 1));
+    panel.add(new JLabel(trescPytania));
+
+    ArrayList < JRadioButton > listaButtonow = new ArrayList < > ();
+
+    for (int i = 0; i < odpowiedzi.size(); i++) {
+        String text = (String) odpowiedzi.get(i);
+        JRadioButton nowy = new JRadioButton(text);
+        Sluchacz nowySluchacz = new Sluchacz(odpowiedz, text);
+        nowy.addItemListener(nowySluchacz);
+        listaButtonow.add(nowy);
+    }
+
+    listaButtonow.get(0).setSelected(true);
+    odpowiedz.setOdpowiedz((String) odpowiedzi.get(0));
+
+    ButtonGroup group = new ButtonGroup();
+    for (int i = 0; i < listaButtonow.size(); i++) {
+        group.add(listaButtonow.get(i));
+        panel.add(listaButtonow.get(i));
+    }
+    Object[] options = {
+        "Proceed"
+    };
+    if (JOptionPane.showConfirmDialog(frame, panel, "Question", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE) < 0) {
+        odpowiedz.setOdpowiedz("Zakoncz program");
+    }
+
+    return odpowiedz;
+}
