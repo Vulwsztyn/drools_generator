@@ -31,8 +31,11 @@ Example flowchart:
 ## (This) Project structure
 
 `reamde_assets` - contains surprisingly this readme's assets
+
 `to_copy` - equali astionishingly contains file to be copied
+
 `react-editable-tree` - contain's the website's code appropriated from [this repository](https://github.com/svognev/react-editable-tree)
+
 `whole_project` - contains a 'failsafe' if you are not able to create project in eclipse you can trust me that it will run and only replace `rules.drl` file in path specified above and just send it
 
 ## How to report bugs?
