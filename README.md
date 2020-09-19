@@ -12,7 +12,7 @@ Example flowchart:
 1. Follow [this tutorial](https://wwu-pi.github.io/tutorials/lectures/lsp/030_install_drools.html)
 
 1. Make sure that during the 6. step ("Create Test Project") you check the same options as on this screenshot:
-![Create Test Project Screenshot](https://github.com/vulwsztyn/drools_generator/blob/master/readme_assets/Screenshot.jpg?raw=true)
+![Create Test Project Screenshot](https://github.com/vulwsztyn/drools_generator/blob/master/readme_assets/Screenshot.png?raw=true)
 
 1. Go to http://vulwsztyn.github.io/drools_generator, fill the decision tress according to your flowchart and press "Save", a rules.drl file should be downloaded
 
