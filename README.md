@@ -20,7 +20,7 @@ Example flowchart:
 
 1. Copy both files from to_copy directory to `your_eclipse_drools_projct_dir/src/main/java/com/sample` and remove previous contents of the folder
 
-1. Replace `Sample.drl` file in `your_eclipse_drools_projct_dir/src/main/resources/rules` with `rules.drl`
+1. Replace `Sample.drl` file in `your_eclipse_drools_projct_dir/src/main/resources/rules` with `rules.drl` (not the contents, the file i.e. remove `Samples.drl` and copy `rules.drl` to it's directory)
 
 1. Refactor the code so that all projects don't look the same
 
