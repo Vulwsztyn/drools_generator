@@ -187,7 +187,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import com.sample.Odpowiedz;
-    ` +
+` +
       nodes.map((e) => mapShit()(e)).join('\n') +
       `function void polec(JFrame frame, KieRuntime krt, String polecane) {
     final JPanel panel = new JPanel();
