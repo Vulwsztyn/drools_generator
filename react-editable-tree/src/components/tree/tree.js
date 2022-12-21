@@ -269,8 +269,9 @@ function Odpowiedz zapytaj(JFrame frame, KieRuntime krt, String trescPytania, Ar
     this.downloadTxtFile(JSON.stringify(this.initializedСopy(this.state.nodes), undefined, 2), 'rules.json')
   }
 
-  loadState() {
+  loadState(data) {
     // this.setState({ nodes: this.initializedСopy(this.state.savedNodes) })
+    this.setState({ nodes: this.initializedСopy(data) })
   }
 
   onTextChange(e) {
