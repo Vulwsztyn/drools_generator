@@ -1,4 +1,9 @@
 # Drools Generator
+
+```
+IMPORTANT: mind the format: answer - next_question/final_sentence 
+```
+
 ## What is this?
 It is a repo meant to facilitate the process of completeing the first project of Artificial Intelligence course on Poznan University of Technology.
 
