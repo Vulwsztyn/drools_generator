@@ -2,6 +2,8 @@
 
 ```
 IMPORTANT: mind the format: answer - next_question/final_sentence 
+
+patch notes: you can now save your progress as json by clicking "Save as json" and load it by clicking browse... and choosing the file (this way your progress won't go away with a page refresh and is shareable)
 ```
 
 ## What is this?
