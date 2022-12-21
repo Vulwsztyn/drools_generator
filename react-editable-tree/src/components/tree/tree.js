@@ -16,6 +16,7 @@ class Tree extends Component {
     this.addRootElement = this.addRootElement.bind(this)
     this.addChild = this.addChild.bind(this)
     this.removeNode = this.removeNode.bind(this)
+    this.saveStateAsDrl = this.saveStateAsDrl.bind(this)
     this.saveState = this.saveState.bind(this)
     this.loadState = this.loadState.bind(this)
     this.onTextChange = this.onTextChange.bind(this)
@@ -132,7 +133,16 @@ class Tree extends Component {
     }
   }
 
-  saveState() {
+  downloadTxtFile(text, filename) {
+    const element = document.createElement('a')
+    const file = new Blob([text], { type: 'text/plain' })
+    element.href = URL.createObjectURL(file)
+    element.download = filename
+    document.body.appendChild(element) // Required for this to work in FireFox
+    element.click()
+  }
+
+  saveStateAsDrl() {
     const nodes = this.simplify(this.state.nodes)
 
     const rootQuestion = (pytanie, odpowiedzi) => `rule "${pytanie}"
@@ -156,19 +166,21 @@ end\n\n`
     then
     polec(frame, kcontext.getKieRuntime(), "${polecane}");
 end\n\n`
-    const mapShit = (nadpytanie = null) => (node) => {
-      const children = node.children ? node.children.filter((e) => e.title.length > 0) : []
-      const split = node.title.split('-').map((e) => e.trim())
-      const odpowiedzi = children
-        .map((e) => e.title.split('-')[0].trim())
-        .filter((value, index, self) => self.indexOf(value) === index)
-      console.log(node.title, split)
-      return nadpytanie == null
-        ? rootQuestion(split[0], odpowiedzi) + children.map((e) => mapShit(split[0])(e)).join('\n')
-        : children.length > 0
-        ? question(nadpytanie, split[0], split[1], odpowiedzi) + children.map((e) => mapShit(split[1])(e)).join('\n')
-        : answer(nadpytanie, split[0], split[1])
-    }
+    const mapShit =
+      (nadpytanie = null) =>
+      (node) => {
+        const children = node.children ? node.children.filter((e) => e.title.length > 0) : []
+        const split = node.title.split('-').map((e) => e.trim())
+        const odpowiedzi = children
+          .map((e) => e.title.split('-')[0].trim())
+          .filter((value, index, self) => self.indexOf(value) === index)
+        console.log(node.title, split)
+        return nadpytanie == null
+          ? rootQuestion(split[0], odpowiedzi) + children.map((e) => mapShit(split[0])(e)).join('\n')
+          : children.length > 0
+          ? question(nadpytanie, split[0], split[1], odpowiedzi) + children.map((e) => mapShit(split[1])(e)).join('\n')
+          : answer(nadpytanie, split[0], split[1])
+      }
     const mapped =
       `package com.sample
 import javax.swing.JOptionPane
@@ -246,22 +258,19 @@ function Odpowiedz zapytaj(JFrame frame, KieRuntime krt, String trescPytania, Ar
     return odpowiedz;
 }`
 
-    const downloadTxtFile = (text) => {
-      const element = document.createElement('a')
-      const file = new Blob([text], { type: 'text/plain' })
-      element.href = URL.createObjectURL(file)
-      element.download = 'rules.drl'
-      document.body.appendChild(element) // Required for this to work in FireFox
-      element.click()
-    }
-    downloadTxtFile(mapped)
+    this.downloadTxtFile(mapped, 'rules.drl')
     console.log(nodes)
     console.log(JSON.stringify(this.simplify(this.state.nodes), undefined, 2))
     this.setState({ savedNodes: this.initializedСopy(this.state.nodes) })
   }
 
+  saveState() {
+    // this.setState({ savedNodes: this.initializedСopy(this.state.nodes) })
+    this.downloadTxtFile(JSON.stringify(this.initializedСopy(this.state.nodes), undefined, 2), 'rules.json')
+  }
+
   loadState() {
-    this.setState({ nodes: this.initializedСopy(this.state.savedNodes) })
+    // this.setState({ nodes: this.initializedСopy(this.state.savedNodes) })
   }
 
   onTextChange(e) {
@@ -287,7 +296,7 @@ function Odpowiedz zapytaj(JFrame frame, KieRuntime krt, String trescPytania, Ar
 
   render() {
     const { nodes, savedNodes } = this.state
-    const { addRootElement, saveState, loadState, onTextChange, nodesToString } = this
+    const { addRootElement, saveStateAsDrl, saveState, loadState, onTextChange, nodesToString } = this
     const hasSaved = savedNodes.length !== 0
 
     return (
@@ -295,7 +304,7 @@ function Odpowiedz zapytaj(JFrame frame, KieRuntime krt, String trescPytania, Ar
         {/* // <div className="Tree"> */}
 
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-          <ControlPanel {...{ hasSaved, saveState, loadState }} />
+          <ControlPanel {...{ hasSaved, saveStateAsDrl, saveState, loadState }} />
           <ul className='Nodes'>
             {nodes.map((nodeProps) => {
               const { id, ...others } = nodeProps
