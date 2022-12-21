@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import TreeNode from '../tree-node'
 import AddButton from '../add-button'
 import ControlPanel from '../control-panel'
-import TextView from '../text-view'
+// import TextView from '../text-view'
 import './tree.css'
 
 class Tree extends Component {
@@ -297,7 +297,7 @@ function Odpowiedz zapytaj(JFrame frame, KieRuntime krt, String trescPytania, Ar
 
   render() {
     const { nodes, savedNodes } = this.state
-    const { addRootElement, saveStateAsDrl, saveState, loadState, onTextChange, nodesToString } = this
+    const { addRootElement, saveStateAsDrl, saveState, loadState} = this
     const hasSaved = savedNodes.length !== 0
 
     return (
