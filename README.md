@@ -39,7 +39,7 @@ Example flowchart:
 
 `reamde_assets` - contains surprisingly this readme's assets
 
-`to_copy` - equali astionishingly contains file to be copied
+`to_copy` - equally astionishingly contains file to be copied
 
 `react-editable-tree` - contain's the website's code appropriated from [this repository](https://github.com/svognev/react-editable-tree)
 
